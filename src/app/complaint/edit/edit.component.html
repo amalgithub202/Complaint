@@ -1,0 +1,38 @@
+<div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
+  <h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Reclamation</h1>
+  <h1 class="h5 mb-4" *ngIf="!isAddMode">Modifier Reclamation {{editedId}}</h1>
+  <form [formGroup]="form" class="w-[50%]">
+    <div class="flex flex-rows-2">
+      <div class="">
+        <mat-label>Client</mat-label>
+        <input type="text" class="form-control" formControlName="customer" [matAutocomplete]="auto"/>
+        <mat-autocomplete class="extended" matSelect #auto="matAutocomplete" [displayWith]="displayFn" >
+         <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredCustomer | async">{{ item.name}}</mat-option>
+        </mat-autocomplete>
+      </div>
+      <div>
+        <mat-label>Employee</mat-label>
+        <input type="text"  class="form-control" formControlName="employe" [matAutocomplete]="autoE"/>
+        <mat-autocomplete #autoE="matAutocomplete" [displayWith]="displayEmp">
+         <mat-option [value]="item" [ngValue]="item" *ngFor="let item of filerdEmployee|async">{{item.name}}</mat-option>
+        </mat-autocomplete>
+      </div>
+      <!-- <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field> -->
+    </div>
+    <div class=" w-full">
+      <mat-form-field class="example-full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput formControlName="content" rows="6" class="form-control w-16"></textarea>
+      </mat-form-field>
+      <!-- <mat-label>Content</mat-label>
+      <textarea formControlName="content" rows="6" class="form-control w-16"></textarea> -->
+    </div>
+    <div class="form-group flex flex-row-reverse gap-4">
+      <button mat-raised-button routerLink="/complaint" color="warn">Annuler</button>
+      <button mat-raised-button color="primary" (click)="save()" >sauvegarder</button>
+    </div>
+
+  </form>
+  </div>

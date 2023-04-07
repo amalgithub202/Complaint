@@ -1,0 +1,16 @@
+
+<h3 style="color:cadetblue; font-size: 30px;">{{title}}</h3>
+<div class=" flex ">
+  <div class="relative">
+    <mat-form-field >
+  <mat-label>Search</mat-label>
+  <input class="max-h-10" matInput placeholder="please enter a value" (input)="search($event)">
+</mat-form-field>
+
+  <div class=" m-1 flex md:flex-col-2">
+    <button routerLink="/create" class=" w-40 h-40 m-1 " mat-raised-button color="primary" (click)="toCreate()" >  <mat-icon>add</mat-icon>Nouveau</button>
+  <button routerLink="/export" class="  w-40 h-14 m-1 " mat-raised-button color="primary" (click)="openPDF($event)" >Export</button>
+ </div>
+  </div>
+
+</div>

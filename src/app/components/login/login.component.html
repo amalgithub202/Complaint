@@ -1,0 +1,24 @@
+<!-- <p class="ml-10">login works!</p> -->
+
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
+  <mat-card-content>
+      <mat-toolbar class="bg-blue text-white text-center text-lg justify-center leading-6 rounded-md"><h1 class="text-center">Login</h1></mat-toolbar>
+      <form [formGroup]="form"  class="mt-8 overflow-hidden sm:rounded-md px-4 py-5 sm:p-6 w-full"  >
+        <mat-form-field class="w-full full-width" [class.error]="form.controls['userName'].dirty && form.hasError('required','userName')">
+          <mat-label><span class="fa fa-user"></span>First Name</mat-label>
+          <input matInput formControlName="userName" placeholder="Username" />
+          <mat-error *ngIf="form.controls['userName'].dirty && form.hasError('required','userName')">FFFFalse</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full" [class.error]="form.controls['Password'].dirty && form.hasError('required','Password')">
+          <mat-label><span class="fa fa-lock"></span>Password</mat-label>
+          <span class="flex justify-between"><input matInput formControlName="Password" [type]="type" placeholder="Password"><span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+        </span>
+        <mat-error *ngIf="form.controls['Password'].dirty && form.hasError('required','Password')">FFFFalse</mat-error>
+        </mat-form-field>
+        <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
+          <button   (click)="onSubmit()" class="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2">Save</button>
+        </div>
+      </form>
+    </mat-card-content>
+</div>
+
