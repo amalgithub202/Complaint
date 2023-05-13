@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class EmployeService {
 
-  public apiUrl = 'https://localhost:7284/Employe'
+  public apiUrl = 'http://localhost:5000/Employe'
   private keepAfterNavigationChange = false;
   private subject = new Subject<any>();
 
@@ -57,6 +57,5 @@ export class EmployeService {
     const url = `${this.apiUrl}/${objet.id}`;
     return this.http.delete<Employe>(url)
   }
-
 
 }

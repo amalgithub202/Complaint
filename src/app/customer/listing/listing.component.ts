@@ -4,6 +4,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
+import {  Router } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DeleteComponent } from '../delete/delete.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFabButton } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-listing',
@@ -21,7 +27,7 @@ export class ListingComponent {
 
   public dataSource  : MatTableDataSource<Customer>
 
-  constructor(private service: CustomerService){
+  constructor(private service: CustomerService,private router: Router, public dialog:MatDialog){
     this.dataSource = new MatTableDataSource<Customer>();
   }
 
@@ -33,6 +39,60 @@ export class ListingComponent {
       this.dataSource.paginator = this.paginator,
       this.dataSource.sort = this.sort
     ))
+  }
+/*  //la fonction openDialog
+ openDialog(){
+    const dialogRef =this.dialog.open(DeleteComponent)}*/
+
+ /*   let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${customer.name}`}})
+     dialogRef.afterClosed().subscribe(confirm => {
+      console.log('Dialog confirm : ${confirm}');
+     })
+  }
+
+ openDialog(customer: Customer){
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${customer.name}`}})//second arguments for past this data in dialog 
+    dialogRef.afterClosed().subscribe(confirm => {
+      if(confirm) {
+        this.CustomerService.delete(customer).subscribe(() => {
+          this.customers = this.customers.filter((t) => t.id !== customer.id)
+          // this.router.navigate(['/customer'], { relativeTo: this.Activatedroute})
+          this.reloadCurrentRoute()
+        })
+      }
+    })
+
+  }
+
+ reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+*/
+ 
+
+openDialog(customer: Customer){
+  let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${customer.name}`}})
+  dialogRef.afterClosed().subscribe(confirm => {
+    if(confirm) {
+      this.service.delete(customer).subscribe(() => {
+        this.customers = this.customers.filter((t) => t.id !== customer.id)
+        this.reloadCurrentRoute()
+      })
+    }
+  })
+}
+reloadCurrentRoute() {
+  let currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([currentUrl]);
+  });
+}
+
+onEdit(id: string): void {
+    this.router.navigate(['edit', id]);
   }
 
 

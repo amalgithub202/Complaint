@@ -8,6 +8,7 @@ import { EditComponent } from './edit/edit.component';
 import { ListingComponent } from './listing/listing.component';
 import { DeleteComponent } from './delete/delete.component';
 import { CoreModule } from '../core/core.module';
+import { MatIconModule } from '@angular/material/icon';
 
 const appRoutes: Routes = [
   ...GlobalRoutes.standardRoutesModule(EditComponent, ListingComponent)
@@ -26,8 +27,7 @@ const appRoutes: Routes = [
       FormsModule,
       ReactiveFormsModule,
       RouterModule.forChild(appRoutes),
-
-
+      MatIconModule,
     ]
 })
 export class CustomerModule { }

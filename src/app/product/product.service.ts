@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class ProductService {
 
-  public apiUrl = 'https://localhost:7284/Product'
+  public apiUrl = 'http://localhost:5000/Product'
   private keepAfterNavigationChange = false;
   private subject = new Subject<any>();
 

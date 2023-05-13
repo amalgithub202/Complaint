@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employe } from '../employe';
 import { EmployeService } from '../employe.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-listing',
@@ -35,6 +36,13 @@ export class ListingComponent {
     ))
   }
 
+  onEdit(id: string): void {
+    this.router.navigate(['edit', id]);
+  }
+  openDialog(){
+    //we must to add the import of delete component
+    const dialogRef =this.dialog.open(DeleteComponent)
+  }
   applyFilter(event: any): void {
     console.log(this.employes)
     const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();

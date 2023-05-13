@@ -22,6 +22,9 @@ import { ProductModule } from './product/product.module';
 import { ComplaintModule } from './complaint/complaint.module';
 import { CoreModule } from './core/core.module'
 import { NgToastModule } from 'ng-angular-popup'
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,7 @@ import { NgToastModule } from 'ng-angular-popup'
     ComplaintModule,
     CoreModule,
     NgToastModule,
-
+    MatDialogModule
   ],
   providers: [
     // {provide: HTTP_INTERCEPTORS, useClass: InterceptorService , multi: true}

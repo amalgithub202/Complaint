@@ -79,7 +79,7 @@ export class EditComponent {
     );
   }
 
-
+//filter by id not his name 
   public filterCus(value: any){
     let filterValue = '';
     if(value){

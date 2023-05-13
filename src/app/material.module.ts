@@ -34,7 +34,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import {MatTreeModule} from '@angular/material/tree'
+import {MatTreeModule} from '@angular/material/tree';
 
 
 @NgModule({

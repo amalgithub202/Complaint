@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Customer } from './customer';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from './delete/delete.component';
 
 
 const httpOptions = {
@@ -15,14 +17,13 @@ const httpOptions = {
 })
 export class CustomerService {
 
-  public apiUrl = ' https://localhost:7284/Customer'
+  public apiUrl = ' http://localhost:5000/Customer'
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
 
+  constructor(private http: HttpClient) {
 
-
-
-  constructor(private http: HttpClient) {}
+  }
 
   getAll(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.apiUrl)
@@ -35,6 +36,11 @@ export class CustomerService {
   add(customer: Customer): Observable<Customer> {
     const url = `${this.apiUrl}`;
     return this.http.post<Customer>(url,customer)
+  }
+
+  delete(customer: Customer): Observable<Customer> {
+    const url = `${this.apiUrl}/${customer.id}`;
+    return this.http.delete<Customer>(url)
   }
 
   update(customer: Customer) : Observable<Customer> {
@@ -52,5 +58,10 @@ export class CustomerService {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
     this.subject.next({ type: 'error', text: message });
   }
+/*
+c'est equivalant de delete in this file 
+  deleteData(id:string) : Observable<Customer> {
+    return this.http.delete<Customer>('${this.apiUrl}/delete/${id}');
+  }*/
 
 }

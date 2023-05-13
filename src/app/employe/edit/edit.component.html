@@ -1,4 +1,5 @@
-<!-- <div class="row">
+<!-- 
+  <div class="row">
   <div class="col-12 col-xl-8">
     <div class="card card-body border-0 shadow mb-4">
       <h2 class="h5 mb-4" *ngIf="isAddMode">Nouveau Employe</h2>
@@ -25,6 +26,64 @@
 </div>
  -->
 
+ <div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
+
+  <h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Employee</h1>
+  <h1 class="h5 mb-4" *ngIf="!isAddMode">Modifier Employee {{id}}</h1>
+
+  <form [formGroup]="form" class="w-[50%]">
+    <div class="flex flex-col">
+      <!-- INPUT NAME-->
+      <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
+    </div>
+    <!-- DROP DOWN DE CLIENT-->
+    <div class=" mt-2 mb-4 ml-2 ">
+      <mat-label>Customer</mat-label>
+      <input type="text" class="form-control ml-3" formControlName="customer" [matAutocomplete]="auto"/>
+      <mat-autocomplete class="extended ml-2" matSelect #auto="matAutocomplete" [displayWith]="displayFn" >
+       <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredCustomer | async">{{ item.id}}</mat-option>
+      </mat-autocomplete>
+    </div>
+<!--
+   <mat-form-field>
+      <mat-label>Customer</mat-label>
+      <mat-select>
+        <mat-option >
+        </mat-option>
+      </mat-select>
+    </mat-form-field>--> 
+    
+    <div class="form-group flex flex-row-reverse gap-4">
+      <button mat-raised-button routerLink="/employee" color="warn">Annuler</button>
+      <button mat-raised-button color="primary" (click)="save()" >sauvegarder</button>
+    </div>
+
+  </form>
+  </div>
+
+<!--
+  ----------------------------------------CODE ORIGINALE------------------------------------------------------
+  <div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
+
+    <h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Employee</h1>
+    <h1 class="h5 mb-4" *ngIf="!isAddMode">Modifier Employee {{id}}</h1>
+  
+    <form [formGroup]="form" class="w-[50%]">
+      <div class="flex flex-col">
+        <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
+      </div>
+      <div class="form-group flex flex-row-reverse gap-4">
+        <button mat-raised-button routerLink="/employee" color="warn">Annuler</button>
+        <button mat-raised-button color="primary" (click)="save()" >sauvegarder</button>
+      </div>
+  
+    </form>
+    </div>
+
 <div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
 
   <h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Employee</h1>
@@ -32,6 +91,13 @@
 
   <form [formGroup]="form" class="w-[50%]">
     <div class="flex flex-col">
+      <div class="">
+        <mat-label>Client</mat-label>
+        <input type="text" class="form-control" formControlName="customer" [matAutocomplete]="auto"/>
+        <mat-autocomplete class="extended" matSelect #auto="matAutocomplete" [displayWith]="displayFn" >
+         <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredCustomer | async">{{ item.name}}</mat-option>
+        </mat-autocomplete>
+      </div>
       <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
@@ -42,4 +108,4 @@
     </div>
 
   </form>
-  </div>
+  </div>-->

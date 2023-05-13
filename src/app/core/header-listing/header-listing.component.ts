@@ -1,7 +1,6 @@
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-header-listing',
   templateUrl: './header-listing.component.html',

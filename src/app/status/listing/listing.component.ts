@@ -37,6 +37,10 @@ export class ListingComponent {
     ))
   }
 
+  onEdit(id:String) : void{
+    this.router.navigate(['edit',id]);
+  }
+
   applyFilter(event: any): void {
     console.log(this.status)
     const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
