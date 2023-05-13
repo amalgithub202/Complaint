@@ -32,7 +32,7 @@ export class EmployeService {
   }
 
   getAll(): Observable<Employe[]> {
-    return this.http.get<Employe[]>(this.apiUrl)
+    return this.http.get<Employe[]>(this.apiUrl+'/Get')
   }
 
   add(objet: Employe): Observable<Employe> {

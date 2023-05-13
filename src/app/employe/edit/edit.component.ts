@@ -12,7 +12,7 @@ import { CustomerService } from 'src/app/customer/customer.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent {
+export class EditComponent  {
 
   public editedObject:Employe={} as Employe;
   public dataId: number| undefined;//edited id 
@@ -22,6 +22,7 @@ export class EditComponent {
  form = this.formBuilder.group({
     id:[0],
     name:['',Validators.required],
+    customer: [null],
     custumorId:[0]
   })
  
@@ -40,7 +41,12 @@ export class EditComponent {
     private formBuilder: FormBuilder,
     private Activatedroute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+     this.Activatedroute.params.subscribe((params) => {
+      this.dataId=params['id'];
+      this.isAddMode = !this.dataId;
+    });
+   }
 
   ngOnInit(): void {
 
@@ -68,11 +74,12 @@ export class EditComponent {
       this.service.getById(this.id).pipe(first()).subscribe(x => this.form.patchValue(x));
     }
   }*/
+}
 
   public filterCus(value: any){
     let filterValue = '';
     if(value){
-      filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
+      // filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
       return this.customers.pipe(
         map(cuss => cuss.filter(customer => customer.id)))
     }
@@ -117,12 +124,12 @@ export class EditComponent {
     let model: Employe = {
      id:formData.id,
      name: formData.name,
-     customerId: formData.customer?.id,
+     customerId: formData.customer.customerId,
      
     };
     this.loading = true
       if(!this.isAddMode){
-        this.service.update(model).pipe(first()).subscribe({ next: () => {
+        this.service.update(model).subscribe({ next: () => {
               this.service.success('User update', true )
               this.router.navigate(['/employee'], { relativeTo: this.Activatedroute})
             },
@@ -133,7 +140,7 @@ export class EditComponent {
           })
       }
     else{
-      this.service.add(model).pipe(first()).subscribe({next: () => {
+      this.service.add(model).subscribe({next: () => {
           this.service.success('User added', true )
           this.router.navigate(['/employee'], { relativeTo: this.Activatedroute})
         },

@@ -2,8 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Customer } from './customer';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteComponent } from './delete/delete.component';
 
 
 const httpOptions = {
@@ -17,7 +15,7 @@ const httpOptions = {
 })
 export class CustomerService {
 
-  public apiUrl = ' http://localhost:5000/Customer'
+  public apiUrl = 'http://localhost:5000/Customer'
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;
 
@@ -26,6 +24,7 @@ export class CustomerService {
   }
 
   getAll(): Observable<Customer[]> {
+    debugger;
     return this.http.get<Customer[]>(this.apiUrl)
   }
 
