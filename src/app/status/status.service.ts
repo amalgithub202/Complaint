@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class StatusService {
 
-  public apiUrl = 'https://localhost:5000/Status'
+  public apiUrl = 'http://localhost:5000/Status'
   private keepAfterNavigationChange = false;
   private subject = new Subject<any>();
 

@@ -76,7 +76,7 @@ export class EditComponent implements OnInit{
             }
           })
       }
-    else{ debugger;
+    else{ 
       this.service.add(this.customerForm.value).pipe(first()).subscribe({next: () => {
           this.service.success('User added', true )
           this.router.navigate(['/customer'], { relativeTo: this.Activatedroute})

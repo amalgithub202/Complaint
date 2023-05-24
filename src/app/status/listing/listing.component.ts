@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '../status';
 import { StatusService } from '../status.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-listing',
@@ -39,6 +40,24 @@ export class ListingComponent {
 
   onEdit(id:String) : void{
     this.router.navigate(['edit',id]);
+  }
+
+  openDialog(status: Status){
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${status.name}`}})
+    dialogRef.afterClosed().subscribe(confirm => {
+      if(confirm) {
+        this.service.delete(status).subscribe(() => {
+          this.status = this.status.filter((t) => t.id !== status.id)
+          this.reloadCurrentRoute()
+        })
+      }
+    })
+  }
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
   applyFilter(event: any): void {

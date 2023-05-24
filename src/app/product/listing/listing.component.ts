@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
-
+import { DeleteComponent } from '../delete/delete.component';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -38,6 +38,24 @@ export class ListingComponent {
 
   onEdit(id:String) : void{
     this.router.navigate(['edit',id]);
+  }
+
+  openDialog(product: Product){
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${product.name}`}})
+    dialogRef.afterClosed().subscribe(confirm => {
+      if(confirm) {
+        this.service.delete(product).subscribe(() => {
+          this.products = this.products.filter((t) => t.id !== product.id)
+          this.reloadCurrentRoute()
+        })
+      }
+    })
+  }
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
   applyFilter(event: any): void {

@@ -50,6 +50,8 @@ export class EditComponent {
     }
   }
 
+  get f() { return this.form.controls; }
+
   public save(){
     console.log("reactive form sumbitted")
     console.log(this.form);

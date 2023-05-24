@@ -40,37 +40,9 @@ export class ListingComponent {
       this.dataSource.sort = this.sort
     ))
   }
-/*  //la fonction openDialog
- openDialog(){
-    const dialogRef =this.dialog.open(DeleteComponent)}*/
-
- /*   let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${customer.name}`}})
-     dialogRef.afterClosed().subscribe(confirm => {
-      console.log('Dialog confirm : ${confirm}');
-     })
-  }
-
- openDialog(customer: Customer){
-    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${customer.name}`}})//second arguments for past this data in dialog 
-    dialogRef.afterClosed().subscribe(confirm => {
-      if(confirm) {
-        this.CustomerService.delete(customer).subscribe(() => {
-          this.customers = this.customers.filter((t) => t.id !== customer.id)
-          // this.router.navigate(['/customer'], { relativeTo: this.Activatedroute})
-          this.reloadCurrentRoute()
-        })
-      }
-    })
-
-  }
-
- reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
-  }
-*/
+/* openDialog(){
+    const dialogRef =this.dialog.open(DeleteComponent)}
+  }*/
  
 
 openDialog(customer: Customer){

@@ -39,9 +39,22 @@ export class ListingComponent {
   onEdit(id: string): void {
     this.router.navigate(['edit', id]);
   }
-  openDialog(){
-    //we must to add the import of delete component
-    const dialogRef =this.dialog.open(DeleteComponent)
+  openDialog(employee: Employe){
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${employee.name}`}})
+    dialogRef.afterClosed().subscribe(confirm => {
+      if(confirm) {
+        this.service.delete(employee).subscribe(() => {
+          this.employes = this.employes.filter((t) => t.id !== employee.id)
+          this.reloadCurrentRoute()
+        })
+      }
+    })
+  }
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
   applyFilter(event: any): void {
     console.log(this.employes)

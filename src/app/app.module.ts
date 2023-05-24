@@ -19,10 +19,14 @@ import { CustomerModule } from './customer/customer.module';
 import { EmployeModule } from './employe/employe.module';
 import { StatusModule } from './status/status.module';
 import { ProductModule } from './product/product.module';
+import { LicenseModule } from './license/license.module';
+import { ModulelModule } from './modulel/modulel.module'; 
 import { ComplaintModule } from './complaint/complaint.module';
 import { CoreModule } from './core/core.module'
 import { NgToastModule } from 'ng-angular-popup'
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 
@@ -50,9 +54,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     StatusModule,
     ProductModule,
     ComplaintModule,
+    LicenseModule,
+    ModulelModule,
     CoreModule,
     NgToastModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   providers: [
     // {provide: HTTP_INTERCEPTORS, useClass: InterceptorService , multi: true}

@@ -1,8 +1,8 @@
 
 <div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
 
-  <h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Status</h1>
-  <h1 class="h5 mb-4" *ngIf="!isAddMode">Modifier Status {{id}}</h1>
+  <h1 class="h5 mb-4" *ngIf="isAddMode" style="color:rgb(17, 50, 198);">Nouveau Status</h1>
+  <h1 class="h5 mb-4" *ngIf="!isAddMode" style="color:rgb(17, 50, 198);">Modifier Status {{id}}</h1>
 
   <form [formGroup]="form" class="w-[50%]">
     <div class="flex flex-col">
@@ -11,8 +11,8 @@
       <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
     </div>
     <div class="form-group flex flex-row-reverse gap-4">
-      <button mat-raised-button routerLink="/status" color="warn">Annuler</button>
-      <button mat-raised-button color="primary" (click)="save()" >sauvegarder</button>
+      <button mat-button routerLink="/status" color="primary" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182); font-weight: bold;">Annuler</button>
+      <button mat-raised-button color="primary" (click)="save()" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182);">sauvegarder</button>
     </div>
 
   </form>

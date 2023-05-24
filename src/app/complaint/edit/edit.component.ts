@@ -30,6 +30,8 @@ export class EditComponent {
     content: ['', Validators.required],
     customer: [null,Validators.required],
     employe: [null,Validators.required],
+    status: [null,Validators.required],
+    product: [null,Validators.required],
     productId: [0],
     statusId: [0]
   })
@@ -39,11 +41,14 @@ export class EditComponent {
 
   fileredCustomer: Observable<Customer[]>|undefined;
   customers!: Observable<Customer[]>;
-  // customers!: Customer[];
+ 
   filerdEmployee: Observable<Employe[]> | undefined;
   employees!: Observable<Employe[]>;
-
+  
+  filerdProduct: Observable<Product[]> | undefined;
   products!: Observable<Product[]>;
+
+  filerdStatus: Observable<Status[]> | undefined;
   statuss!: Observable<Status[]>;
 
   constructor(
@@ -72,23 +77,32 @@ export class EditComponent {
         switchMap(value => this.filterCus(value))
       );
 
-    this.filerdEmployee  =  this.form.get('employe')?.valueChanges
+      this.filerdEmployee  =  this.form.get('employe')?.valueChanges
+      .pipe(
+        startWith(''),
+        switchMap(value => this.filterEmp(value))
+      );
+
+    this.filerdStatus  =  this.form.get('status')?.valueChanges
     .pipe(
       startWith(''),
-      switchMap(value => this.filterEmp(value))
+      switchMap(value => this.filterSta(value))
     );
+
+    this.filerdProduct  =  this.form.get('product')?.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.filterPro(value))
+    );
+
   }
 
-//filter by id not his name 
   public filterCus(value: any){
     let filterValue = '';
     if(value){
-      filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
+      // filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
       return this.customers.pipe(
-        map(cuss => cuss.filter(customer => customer.name.toLowerCase().includes(filterValue)))
-      )
-
-      // return this.customers.filter(customer => customer.name.toLowerCase().includes(filterValue));
+        map(cuss => cuss.filter(customer => customer.id)))
     }
     else {
       return [];
@@ -97,21 +111,49 @@ export class EditComponent {
   public filterEmp(value: any){
     let filterValue = '';
     if(value){
-      filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
+      // filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
       return this.employees.pipe(
-        map(emp => emp.filter(employe => employe.name.toLowerCase().includes(filterValue)))
-      )
-
-      // return this.customers.filter(customer => customer.name.toLowerCase().includes(filterValue));
-    } else {
+        map(emp => emp.filter(employe => employe.id)))
+    }
+    else {
       return [];
     }
   }
+
+  public filterSta(value: any){
+    let filterValue = '';
+    if(value){
+      return this.statuss.pipe(
+        map(sta => sta.filter(status => status.id)))
+    }
+    else {
+      return [];
+    }
+  }
+
+  public filterPro(value: any){
+    let filterValue = '';
+    if(value){
+      return this.products.pipe(
+        map(pro => pro.filter(product => product.id)))
+    }
+    else {
+      return [];
+    }
+  }
+
+
   public displayFn(customer?: any): any {
     return customer ? customer.name : "";
   }
   public displayEmp(employe?: any): any {
     return employe ? employe.name : "";
+  }
+  public displaysta(status?:any):any {
+    return status ? status.name : "";
+  }
+  public displaypro(product?:any):any {
+    return product ? product.name : "";
   }
 
 
@@ -145,7 +187,20 @@ export class EditComponent {
         finalize(()=>this.loading=false)
       ).subscribe((result: Employe|any) => {
         this.form.controls["employe"]?.setValue(result);
-      })
+      });
+      this.statusService.getById(data.statusId).pipe(
+        finalize(()=>this.loading=false)
+      ).subscribe((result:Status | any) => {
+        this.form.controls["statusId"]?.setValue(result);
+        console.log(result);
+      });
+      this.productService.getById(data.productId).pipe(
+        finalize(()=>this.loading=false)
+      ).subscribe((result:Product | any) => {
+        this.form.controls["productId"]?.setValue(result);
+        console.log(result);
+      });
+
     })
   }
  }
@@ -165,7 +220,9 @@ export class EditComponent {
      customerId: formData.customer?.id,
      employeName: formData.employe?.name,
      employeId: formData.employe?.id,
+     productName: formData.product?.name,
      productId: formData.product?.id,
+     statusName: formData.status?.name,
      statusId: formData.status?.id
     };
 

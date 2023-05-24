@@ -47,7 +47,7 @@ export class EditComponent {
       }
     })
     if(!this.isAddMode){
-      this.service.getById(this.id).pipe(first()).subscribe(x => this.form.patchValue(x));
+      this.service.getById(this.id).subscribe(x => this.form.patchValue(x));
     }
   }
 
@@ -71,10 +71,10 @@ export class EditComponent {
             }
           })
       }
-    else{
-      this.service.add(this.form.value).pipe(first()).subscribe({next: () => {
+    else{ debugger;
+      this.service.add(this.form.value).pipe(first()).subscribe({next: () => { 
           this.service.success('User added', true )
-          this.router.navigate(['/product'], { relativeTo: this.Activatedroute})
+          this.router.navigate(['/product'], { relativeTo: this.Activatedroute})//for redirect to listing
         },
        error: error => {
           this.service.error(error)

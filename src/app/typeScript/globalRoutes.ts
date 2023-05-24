@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Routes } from '@angular/router';
+import { EditComponent } from '../modulel/edit/edit.component';
+import { ListingComponent } from '../modulel/listing/listing.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class GlobalRoutes {
+  static StandarRoutesModuleMmodule(EditComponent: EditComponent, ListingComponent: ListingComponent) {
+    throw new Error('Method not implemented.');
+  }
   constructor(){}
 
   public static createRoutesModule( component: any){

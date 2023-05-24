@@ -37,9 +37,9 @@ export class ListingComponent {
     ))
   }
 
-  // onEdit(id: string): void {
-  //   this.router.navigate(['edit', id]);
-  // }
+  onEdit(id: string): void {
+     this.router.navigate(['edit', id]);
+   }
 
   applyFilter(event: any): void {
     console.log(this.complaint)

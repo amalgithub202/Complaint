@@ -24,7 +24,6 @@ export class CustomerService {
   }
 
   getAll(): Observable<Customer[]> {
-    debugger;
     return this.http.get<Customer[]>(this.apiUrl)
   }
 

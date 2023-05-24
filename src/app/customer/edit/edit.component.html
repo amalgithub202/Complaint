@@ -1,8 +1,8 @@
 
 <div class="p-4 flex flex-col w-[60%] bg-light shadow sm:overflow-hidden sm:rounded-md">
 
-<h1 class="h5 mb-4" *ngIf="isAddMode">Nouveau Client</h1>
-<h1 class="h5 mb-4" *ngIf="!isAddMode">Modifier Client {{id}}</h1>
+<h1 class="h5 mb-4" *ngIf="isAddMode" style="color:rgb(17, 50, 198); font-weight: bold;">Nouveau Client</h1>
+<h1 class="h5 mb-4" *ngIf="!isAddMode" style="color:rgb(17, 50, 198);">Modifier Client {{id}}</h1>
 
 <form [formGroup]="customerForm" class="w-[50%]">
   <div class="flex flex-col">
@@ -10,9 +10,9 @@
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
   </div>
-  <div class="form-group flex flex-row-reverse gap-4">
-    <button mat-raised-button routerLink="/customer" color="warn">Annuler</button>
-    <button mat-raised-button color="primary" (click)="save()" >sauvegarder</button>
+  <div class="form-group flex flex-row-reverse gap-4 mt-4">
+    <button mat-button routerLink="/customer" color="primary" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182); font-weight: bold;">Annuler</button>
+    <button mat-raised-button color="primary" (click)="save()" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182);">sauvegarder</button>
   </div>
 
 </form>

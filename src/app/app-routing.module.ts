@@ -31,6 +31,14 @@ const routes: Routes = [
     path: 'complaint',
     loadChildren: () => import ('./complaint/complaint.module').then(m => m.ComplaintModule)
   },
+  {
+    path: 'license',
+    loadChildren: () => import ('./license/license.module').then(m => m.LicenseModule)
+  },
+  {
+  path: 'modulel',
+  loadChildren: () => import ('./modulel/modulel.module').then(m => m.ModulelModule)
+},
 
 
 ];
