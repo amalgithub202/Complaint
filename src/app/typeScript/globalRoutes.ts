@@ -67,12 +67,12 @@ export class GlobalRoutes {
       GlobalRoutes.listingRoutesModule(employeeComponent),
     ]
   }
-  public static StandarRoutesModuleComplaint( createEditComponent: any,  employeeComponent: any) :Routes{
+  public static standardRoutesComplaint( createEditComponent: any, listingComponent: any):Routes{
     return [
       {path: '', redirectTo:'complaint', pathMatch: 'full'},
       GlobalRoutes.createRoutesModule(createEditComponent),
       GlobalRoutes.editRoutesModule(createEditComponent),
-      GlobalRoutes.listingRoutesModule(employeeComponent),
+      GlobalRoutes.listingRoutesModule(listingComponent),
     ]
   }
 }

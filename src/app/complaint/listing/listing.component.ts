@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Complaint } from '../complaint';
 import { ComplaintService } from '../complaint.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-listing',
@@ -18,7 +19,7 @@ export class ListingComponent {
   @ViewChild(MatSort) sort!: MatSort
   public displayedColumns : string[] = ['id', 'content', 'customerName', 'employeName'];
   public columnsToDisplay : string[] = [ ... this.displayedColumns, 'actions']
-  complaint: Complaint[] = []
+  complaints: Complaint[] = []
   public columnsFilters = {}
   public dataSource  : MatTableDataSource<Complaint>
 
@@ -28,21 +29,38 @@ export class ListingComponent {
   }
 
   ngOnInit(): void {
-    this.service.getAll().subscribe((complaint) => (
-      this.complaint = complaint,
-      this.dataSource = new MatTableDataSource(this.complaint),
+    this.service.getAll().subscribe((complaints) => (
+      this.complaints = complaints,
+      this.dataSource = new MatTableDataSource(this.complaints),
       this.dataSource.paginator = this.paginator,
       this.dataSource.sort = this.sort,
-      console.log(this.complaint)
+      console.log(this.complaints)
     ))
   }
 
-  onEdit(id: string): void {
-     this.router.navigate(['edit', id]);
-   }
+   onEdit(id: string): void {
+    this.router.navigate(['complaint/edit', id]);
+  }
+  openDialog(complaint: Complaint){
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${complaint.content}`}})
+    dialogRef.afterClosed().subscribe(confirm => {
+      if(confirm) {
+        this.service.delete(complaint).subscribe(() => {
+          this.complaints = this.complaints.filter((t) => t.id !== complaint.id)
+          this.reloadCurrentRoute()
+        })
+      }
+    })
+  }
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 
   applyFilter(event: any): void {
-    console.log(this.complaint)
+    console.log(this.complaints)
     const filter = (event.target as HTMLInputElement).value.trim().toLocaleLowerCase();
     this.dataSource.filter = filter;
     if (this.dataSource.paginator) {

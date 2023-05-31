@@ -129,7 +129,7 @@ export class EditComponent {
         this.loading = true
           if(!this.isAddMode){
             this.service.update(model).subscribe({ next: () => {
-                  this.service.success('User update', true )
+                  this.service.success('Model update', true )
                   this.router.navigate(['/modulel'], { relativeTo: this.Activatedroute})
                 },
                 error: error => {
@@ -140,7 +140,7 @@ export class EditComponent {
           }
         else{ debugger;
           this.service.add(model).subscribe({next: () => { debugger;
-              this.service.success('User added', true )
+              this.service.success('Model added', true )
               this.router.navigate(['/modulel'], { relativeTo: this.Activatedroute})
             },
            error: error => {

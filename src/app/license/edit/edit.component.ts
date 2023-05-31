@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { License } from '../license';
-import {  FormBuilder, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LicenseService } from '../license.service';
 import { Product } from 'src/app/product/product';
 import { ProductService } from 'src/app/product/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable,finalize, map, startWith, switchMap } from 'rxjs';
-import { DatePipe } from '@angular/common'; 
+import { DatePipe } from '@angular/common'; //import de module datepipe
+import { CdkPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  styleUrls: ['./edit.component.css'],
+  providers: [DatePipe],
 })
 export class EditComponent {
 
@@ -22,16 +24,9 @@ export class EditComponent {
 
   licenseKey: string | undefined;
 
+  form!: FormGroup;
   
- form = this.formBuilder.group({
-    id:[0],
-    keyLicense:['',Validators.required],
-    product: [null,Validators.required],
-    productId:[0],
-    algorithm:['',Validators.required],//must be the same name in the form group
-    formFrom: ['', Validators.required],
-    formTo: ['', Validators.required],
-  })
+ 
 
   isAddMode: boolean | undefined;
   loading= false ;
@@ -46,12 +41,14 @@ export class EditComponent {
     private productService: ProductService,
     private formBuilder: FormBuilder,
     private Activatedroute: ActivatedRoute,
+    private datePipe: DatePipe,//injecter Datepipe dans le constructor
     private router: Router) {
       this.Activatedroute.params.subscribe((params) => {
       this.dataId=params['id'];
       this.isAddMode = !this.dataId;
     });
    }
+
 
    public filterPro(value: any){
     let filterValue = '';
@@ -63,6 +60,7 @@ export class EditComponent {
       return [];
     }
   }
+
   public displaypro(product?:any):any {
     return product ? product.name : "";
   }
@@ -91,6 +89,16 @@ export class EditComponent {
    }
 
    ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      id:[0],
+      keyLicense:['',Validators.required],
+      product: [null,Validators.required],
+      productId:[0],
+      algorithm:['',Validators.required],//must be the same name in the form group
+      //dateFrom: ['', Validators.required],dateTo: ['', Validators.required],
+      dateFrom: [new Date(), Validators.required],
+      dateTo: [new Date(), Validators.required],
+    })
 
     this.initialize();
 
@@ -99,87 +107,129 @@ export class EditComponent {
           startWith(''),
           switchMap(value => this.filterPro(value))
         );
+        
    }
+  //  algorithmm = this.form.get('algorithm')?.value;
 
    //function for generate key license inside save 
 
-   public save() {
-    console.log("reactive form submitted");
-    console.log(this.form);
-    this.submitted = true;
-  
-    if (this.form.invalid) {
-      return;
-    }
-  
-    const formData: any = this.form.value;
-    const model: License = {
-      id: formData.id,
-      licenseKey: '', // We will generate the license key
-      productId: formData.product?.id,
-      algorithm: formData.algorithm,
-      dateFrom: formData.formFrom.Date.parse,
-      dateTo: formData.formTo,
-    };
-  
+  //  generatedLicenseKey = this.generateLicenseKey()
+   save(){
     console.log(this.form)
-    this.loading = true;
+   }
+  //  public save() {
+  //   console.log("reactive form submitted");
+  //   console.log(this.form);
+  //   this.submitted = true;
   
-    if (!this.isAddMode) {
-      this.service.update(model).subscribe({
-        next: () => {
-          this.service.success('License updated', true);
-          this.router.navigate(['/license'], { relativeTo: this.Activatedroute });
-        },
-        error: (error) => {
-          this.service.error(error);
-          this.loading = false;
-        },
-      });
-    } else { 
-      this.service.add(model).subscribe({
-        next: (addedLicense: License) => {
-          const generatedLicenseKey = this.generateLicenseKey();
-          addedLicense.licenseKey = generatedLicenseKey;
+  //   if (this.form.invalid) { 
+  //     return;
+  //   }
   
-          this.service.update(addedLicense).subscribe({
-            next: () => {
-              this.service.success('License added', true);
-              this.router.navigate(['/license'], { relativeTo: this.Activatedroute });
-            },
-            error: (error) => {
-              this.service.error(error);
-              this.loading = false;
-            },
-          });
-        },
-        error: (error) => {
-          this.service.error(error);
-          this.loading = false;
-        },
-      });
-    }
-  }
+  //   const formData: any = this.form.value;
+  //   const generatedLicenseKey = this.generateLicenseKey();
+
+  //   /*const dateFrom = this.form.get('dateFrom')?.value;
+  //   const formaterDateFrom = this.datePipe.transform(dateFrom, 'dd/MM/yyyy');
+    
+  //   const dateTo = this.form.get('dateTo')?.value;
+  //   const formaterDateTo = dateTo ? this.datePipe.transform(dateTo, 'dd/MM/yyyy') : '';*/
+
+  //   //c'est le model avec le quelle en envoi les données -> backend
+  //   const model: License = {
+  //     id: formData.id,
+  //     licenseKey: '', // We will generate the license key
+  //     productId: formData.product?.id,
+  //     algorithm: formData.generatedLicenseKey.algorithm,
+  //     dateFrom: new Date(formData.dateFrom),
+  //     dateTo: new Date(formData.dateTo),
+  //   };
+  
+  //   const addedLicense = generatedLicenseKey;
+  //   console.log(addedLicense)
+  //   console.log(model.algorithm)
+  //   this.loading = true;
+  
+  //   if (!this.isAddMode) {
+  //     this.service.update(model).subscribe({
+  //       next: () => {
+  //         this.service.success('License updated', true);
+  //         this.router.navigate(['/license'], { relativeTo: this.Activatedroute });
+  //       },
+  //       error: (error) => {
+  //         this.service.error(error);
+  //         this.loading = false;
+  //       },
+  //     });
+  //   } else { 
+  //     debugger;
+  //     this.service.add(addedLicense).subscribe({
+  //       next: (addedLicense: License) => { debugger;
+  //         // const generatedLicenseKey = this.generateLicenseKey();
+          
+
+  
+  //         this.service.update(addedLicense).subscribe({
+  //           next: () => {
+  //             this.service.success('License added', true);
+  //             this.router.navigate(['/license'], { relativeTo: this.Activatedroute });
+  //           },
+  //           error: (error) => {
+  //             this.service.error(error);
+  //             this.loading = false;
+  //           },
+  //         });
+  //       },
+  //       error: (error) => {
+  //         this.service.error(error);
+  //         this.loading = false;
+  //       },
+  //     });
+  //   }  
+  // }
 
   // date= Date.parse
   
- 
   public generateLicenseKey() {
-    const algorithm = this.form.get('algorithm')?.value;
-    const dateFrom = this.form.get('dateFrom')?.value;
-    const dateTo = this.form.get('dateTo')?.value;
-    const product = this.form.get('product')?.value;
+
+    const formDatab: any = {
+       algorithm : this.form.get('algorithm')?.value,
+       dateFrom : this.form.get('dateFrom')?.value ?? new Date(),
+       dateTo : this.form.get('dateTo')?.value ?? new Date(),
+       product : this.form.get('product')?.value,
+      //  day : this.form.get('dateFrom')?.getDate(),
+      //  year : dateTo?.getFullYear(),
+      //  firstTwoLetters : algorithm?.substring(0, 2),
+      //  yearDifference : dateTo.getFullYear() - new Date(dateFrom).getFullYear(),
+    }
+   
+
+    // const formData: any = this.form.value;
+    // const model: License = {
+    //   id: formData.id,
+    //   licenseKey: '', // We will generate the license key
+    //   productId: formData.product?.id,
+    //   algorithm: formData.generatedLicenseKey.algorithm,
+    //   dateFrom: new Date(formData.dateFrom),
+    //   dateTo: new Date(formData.dateTo),
+    // };
   
-    // Shuffle the values
-    const Values = algorithm+'-'+product+'$'+algorithm+'-'+dateFrom+'-'+dateTo;
-  
-    console.log(dateFrom)
-    const licenseKey = Values;
+
+   // const formaterDateFrom = this.datePipe.transform(dateFrom, 'dd/MM/yyyy');//la methode transforme permet de transformer la dateFrom selon le format q'on la donner entre les cotes
+    //  const dateTo = this.form.get('dateTo')?.value;
+    //const dateFrom = this.form.get('dateFrom')?.value;
+   // const formaterDateTo = this.datePipe.transform(dateTo, 'dd/MM/yyyy');   const year = dateFrom?.getFullYear(); pour prendre just l'années dans dateFrom
+    //c'est une variable qui vas stoker l'operation sur les années
+    //pour prendre tout la date et les converture en string  dateFrom?.toLocaleDateString()  dateTo?.toLocaleDateString()
+    
+
+    // mélanger les valuers
+    // // const licenseKey = '%%'+ firstTwoLetters + '#' + algorithm + '%' + product + '$$' + algorithm + '-%' + day + '$$' + yearDifference + '/$' + year ;
   
     // Display the generated license key in the console
-    console.log('Generated License Key:', licenseKey);
+    // console.log('Generated License Key:', licenseKey);
   
-    return licenseKey;
+    return formDatab;
   }
   
 

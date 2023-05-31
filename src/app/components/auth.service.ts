@@ -13,7 +13,7 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private baseUrl: string = "https://localhost:7284/api/User/"
+  private baseUrl: string = "http://localhost:5000/api/User/"
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) { }

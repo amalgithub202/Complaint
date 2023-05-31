@@ -30,6 +30,7 @@ export class EditComponent {
     content: ['', Validators.required],
     customer: [null,Validators.required],
     employe: [null,Validators.required],
+    employeId: [0],
     status: [null,Validators.required],
     product: [null,Validators.required],
     productId: [0],
@@ -42,13 +43,13 @@ export class EditComponent {
   fileredCustomer: Observable<Customer[]>|undefined;
   customers!: Observable<Customer[]>;
  
-  filerdEmployee: Observable<Employe[]> | undefined;
+  fileredEmployee: Observable<Employe[]> | undefined;
   employees!: Observable<Employe[]>;
   
-  filerdProduct: Observable<Product[]> | undefined;
+  fileredProduct: Observable<Product[]> | undefined;
   products!: Observable<Product[]>;
 
-  filerdStatus: Observable<Status[]> | undefined;
+  fileredStatus: Observable<Status[]> | undefined;
   statuss!: Observable<Status[]>;
 
   constructor(
@@ -77,19 +78,19 @@ export class EditComponent {
         switchMap(value => this.filterCus(value))
       );
 
-      this.filerdEmployee  =  this.form.get('employe')?.valueChanges
+      this.fileredEmployee  =  this.form.get('employe')?.valueChanges
       .pipe(
         startWith(''),
         switchMap(value => this.filterEmp(value))
       );
 
-    this.filerdStatus  =  this.form.get('status')?.valueChanges
+    this.fileredStatus  =  this.form.get('status')?.valueChanges
     .pipe(
       startWith(''),
       switchMap(value => this.filterSta(value))
     );
 
-    this.filerdProduct  =  this.form.get('product')?.valueChanges
+    this.fileredProduct  =  this.form.get('product')?.valueChanges
     .pipe(
       startWith(''),
       switchMap(value => this.filterPro(value))
@@ -100,7 +101,7 @@ export class EditComponent {
   public filterCus(value: any){
     let filterValue = '';
     if(value){
-      // filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
+       filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
       return this.customers.pipe(
         map(cuss => cuss.filter(customer => customer.id)))
     }
@@ -111,7 +112,7 @@ export class EditComponent {
   public filterEmp(value: any){
     let filterValue = '';
     if(value){
-      // filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
+     filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLocaleLowerCase();
       return this.employees.pipe(
         map(emp => emp.filter(employe => employe.id)))
     }

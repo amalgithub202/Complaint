@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class ComplaintService {
 
-  public apiUrl = 'http://localhost:5000/api/Complaint/'
+  public apiUrl = 'http://localhost:5000/api/Complaint'
   private keepAfterNavigationChange = false;
   private subject = new Subject<any>();
 
@@ -31,13 +31,15 @@ export class ComplaintService {
   }
 
   getAll(): Observable<Complaint[]> {
-    return this.http.get<Complaint[]>(this.apiUrl+'GetAll')
+    return this.http.get<Complaint[]>(this.apiUrl+'/GetAll')
   }
 
   add(object: Complaint): Observable<Complaint> {
     const url = `${this.apiUrl}`;
-    return this.http.post<Complaint>(url+'Add',object)
+    return this.http.post<Complaint>(url+'/Add',object)
   }
+
+
 
   update(object: Complaint) : Observable<Complaint> {
     const url = `${this.apiUrl}/${object.id}`;

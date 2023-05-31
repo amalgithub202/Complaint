@@ -15,18 +15,23 @@
         <mat-label>Algorithme</mat-label>
         <input matInput formControlName="algorithm" class="formControl" placeholder="Algorithme"  /></mat-form-field>
       </div>
+      <div class="flex flex-col">
+        <mat-form-field>
+        <mat-label>Licence</mat-label>
+        <input matInput formControlName="keyLicense" class="formControl" placeholder="Algorithme"  /></mat-form-field>
+      </div>
 
       <div class="mt-2 mb-4 ml-2">
         <mat-form-field>
-          <input matInput [matDatepicker]="datepicker" formControlName="formFrom" placeholder="Date From">
+          <input matInput [matDatepicker]="datepicker" formControlName="dateFrom" placeholder="Date From">
           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
           <mat-datepicker #datepicker></mat-datepicker>
         </mat-form-field>
       </div>
-      
+ 
       <div class="mt-2 mb-4 ml-2">
         <mat-form-field>
-          <input matInput [matDatepicker]="datepi" formControlName="formTo" placeholder="Date To">
+          <input matInput [matDatepicker]="datepi" formControlName="dateTo" placeholder="Date To">
           <mat-datepicker-toggle matSuffix [for]="datepi"></mat-datepicker-toggle>
           <mat-datepicker #datepi></mat-datepicker>
         </mat-form-field>
@@ -36,14 +41,14 @@
       <mat-form-field class="example-full-width">
         <mat-label>Product</mat-label>
         <input type="text"
-               placeholder="Pick one"
+               placeholder="pick one"
                aria-label="product"
                matInput
                formControlName="product"
                [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of fileredProduct | async" [value]="option">
-            {{option}}
+          <mat-option *ngFor="let option of fileredProduct | async" [value]="option.id">
+            {{option.id}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -53,7 +58,7 @@
        <!-- <button mat-raised-button color="primary" (click)="save()" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182);">Generate</button>-->
       
 
-      <button mat-raised-button color="primary" (click)="save()" style="border-radius: 15px; border: 2px solid rgb(4, 37, 182);">
+      <button mat-raised-button color="primary" (click)=" save()" style="border-radius: 15px; border: 2px solid rgb(4, 37, 182);">
         Generate
       </button>
       </div>
@@ -64,10 +69,5 @@
       </div>
       
 
-    <!--  <div *ngIf="licenseKey">
-        <label>Lisence Key:</label>
-        <p>{{licenseKey}}</p>
-      </div>
-     -->
     </form>
     </div>

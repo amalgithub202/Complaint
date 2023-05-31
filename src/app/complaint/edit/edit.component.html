@@ -6,8 +6,8 @@
       <div class="">
         <div class="row">
           <mat-label>Client</mat-label>
-          <input type="text" class="form-control" formControlName="customer" [matAutocomplete]="auto"/>
-          <mat-autocomplete class="extended" matSelect #auto="matAutocomplete" [displayWith]="displayFn" >
+          <input type="text" class="form-control" formControlName="customer" [matAutocomplete]="autoC"/>
+          <mat-autocomplete class="extended" matSelect #autoC="matAutocomplete" [displayWith]="displayFn" >
           <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredCustomer | async">{{ item.name}}</mat-option>
           </mat-autocomplete>
         </div>
@@ -15,7 +15,7 @@
         <mat-label>Employee</mat-label>
         <input type="text"  class="form-control ml-3" formControlName="employe" [matAutocomplete]="autoE"/>
         <mat-autocomplete #autoE="matAutocomplete" [displayWith]="displayEmp">
-        <mat-option [value]="item" [ngValue]="item" *ngFor="let item of filerdEmployee|async">{{item.name}}</mat-option>
+        <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredEmployee|async">{{item.name}}</mat-option>
         </mat-autocomplete>
       </div>
       </div>
@@ -23,16 +23,16 @@
       <div class="row">
         <div>
           <mat-label>Status</mat-label>
-          <input type="text" class="form-control" formControlName="status" [matAutocomplete]="autoE"/>
-          <mat-autocomplete #autoE="matAutocomplete" [displayWith]="displaysta">
-           <mat-option [value]="item" [ngValue]="item" *ngFor="let item of filerdStatus|async">{{item.name}}</mat-option>
+          <input type="text" class="form-control" formControlName="status" [matAutocomplete]="autoS"/>
+          <mat-autocomplete #autoS="matAutocomplete" [displayWith]="displaysta">
+           <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredStatus|async">{{item.name}}</mat-option>
           </mat-autocomplete>
         </div>
         <div>
           <mat-label>Produit</mat-label>
-          <input type="text"  class="form-control ml-3" formControlName="product" [matAutocomplete]="autoE"/>
-          <mat-autocomplete #autoE="matAutocomplete" [displayWith]="displaypro">
-           <mat-option [value]="item" [ngValue]="item" *ngFor="let item of filerdProduct|async">{{item.name}}</mat-option>
+          <input type="text"  class="form-control ml-3" formControlName="product" [matAutocomplete]="autoP"/>
+          <mat-autocomplete #autoP="matAutocomplete" [displayWith]="displaypro">
+           <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredProduct|async">{{item.name}}</mat-option>
           </mat-autocomplete>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { CoreModule } from '../core/core.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 const appRoutes: Routes = [
-  ...GlobalRoutes.StandarRoutesModuleComplaint(EditComponent, ListingComponent)
+  ...GlobalRoutes.standardRoutesComplaint(EditComponent, ListingComponent)
 ]
 
 @NgModule({

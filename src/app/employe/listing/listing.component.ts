@@ -37,7 +37,7 @@ export class ListingComponent {
   }
 
   onEdit(id: string): void {
-    this.router.navigate(['edit', id]);
+    this.router.navigate(['employee/edit', id]);
   }
   openDialog(employee: Employe){
     let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${employee.name}`}})
