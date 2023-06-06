@@ -42,7 +42,7 @@ export class ListingComponent {
   }
 
   onEdit(id: string): void {
-    this.router.navigate(['edit', id]);
+    this.router.navigate(['modulel/edit', id]);
   }
   openDialog(module: Modulel){
     let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${module.name}`}})

@@ -3,8 +3,9 @@
 export interface License {
     id?:number;
     productId?:number;
-    licenseKey:string;
-    algorithm:string;
+    //licenseKey:string;
+    //algorithm:string;
     dateFrom:Date;
     dateTo:Date;
+    productName:string;
 }

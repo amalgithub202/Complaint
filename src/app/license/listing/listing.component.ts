@@ -18,7 +18,7 @@ export class ListingComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
-  public displayedColumns : string[] = ['id', 'keyLicense','algorithm','product'];
+  public displayedColumns : string[] = ['id','product','dateFrom','dateTo'];
   public columnsToDisplay : string[] = [ ... this.displayedColumns, 'actions']
   licenses: License[] = []
   public columnsFilters = {}
@@ -38,10 +38,10 @@ export class ListingComponent {
   }
 
   onEdit(id: string): void {
-    this.router.navigate(['edit', id]);
+    this.router.navigate(['license/edit', id]);
   }
   openDialog(license: License){
-    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${license.licenseKey}`}})
+    let dialogRef = this.dialog.open(DeleteComponent, {data: { modalTitle: `${license.id}`}})
     dialogRef.afterClosed().subscribe(confirm => {
       if(confirm) {
         this.service.delete(license).subscribe(() => {

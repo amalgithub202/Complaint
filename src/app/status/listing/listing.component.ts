@@ -39,7 +39,7 @@ export class ListingComponent {
   }
 
   onEdit(id:String) : void{
-    this.router.navigate(['edit',id]);
+    this.router.navigate(['status/edit',id]);
   }
 
   openDialog(status: Status){

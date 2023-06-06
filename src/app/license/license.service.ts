@@ -34,16 +34,9 @@ export class LicenseService {
     return this.http.get<License[]>(this.apiUrl)
   }
 
-  add(objet: License |any): Observable<License> {
-  /*  const url = `${this.apiUrl}`;
+  add(objet: License): Observable<License> {
+    const url = `${this.apiUrl}`;
     return this.http.post<License>(url,objet)
-      */  
-    let params = new URLSearchParams();
-    for(let key in objet){
-        params.set(key, objet[key]) 
-    }
-    const url = `${this.apiUrl+ params}`;
-    return this.http.post<License>(url,{})
   }
 
   update(license: License) : Observable<License> {

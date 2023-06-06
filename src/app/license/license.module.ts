@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CoreModule } from '../core/core.module';
 
 const appRoutes: Routes = [
-  ...GlobalRoutes.standardRoutesModule(EditComponent, ListingComponent)
+  ...GlobalRoutes.StandarRoutesModuleLicense(EditComponent, ListingComponent)
 ]
 
 @NgModule({

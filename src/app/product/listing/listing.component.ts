@@ -37,7 +37,7 @@ export class ListingComponent {
   }
 
   onEdit(id:String) : void{
-    this.router.navigate(['edit',id]);
+    this.router.navigate(['product/edit',id]);
   }
 
   openDialog(product: Product){

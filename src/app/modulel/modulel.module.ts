@@ -13,7 +13,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 
 
 const appRoutes: Routes = [
-  ...GlobalRoutes.standardRoutesModule(EditComponent, ListingComponent)
+  ...GlobalRoutes.StandarRoutesModuleModulel(EditComponent, ListingComponent)
 ]
 
 @NgModule({

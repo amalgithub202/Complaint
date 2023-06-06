@@ -48,10 +48,16 @@ export class StatusService {
     return this.http.get<Status>(this.apiUrl+"/"+id)
   }
 
-  edit(object: Status) {
+  /*edit(object: Status) {
     const url = `${this.apiUrl}/${object.id}`
     this.http.put<Status>( url,object, httpOptions)
+  }*/
+
+  edit(object: Status): Observable<Status> {
+    const url = `${this.apiUrl}/${object.id}`;
+    return this.http.put<Status>(url, object, httpOptions);
   }
+  
 
   delete(object: Status): Observable<Status> {
     const url = `${this.apiUrl}/${object.id}`;

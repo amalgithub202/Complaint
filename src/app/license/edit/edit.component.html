@@ -4,13 +4,13 @@
     <h1 class="h5 mb-4" *ngIf="!isAddMode" style="color:rgb(17, 50, 198);">Modifier License {{id}}</h1>
   
  <form [formGroup]="form" class="w-[50%]">
- <!--        <div class="flex flex-col">
+<!--        <div class="flex flex-col">
      <mat-form-field>
       <mat-label>License Key</mat-label>
         <input matInput formControlName="keyLicense" class="formControl" placeholder="License Key" /></mat-form-field>
       </div>
--->
-      <div class="flex flex-col">
+
+    <div class="flex flex-col">
         <mat-form-field>
         <mat-label>Algorithme</mat-label>
         <input matInput formControlName="algorithm" class="formControl" placeholder="Algorithme"  /></mat-form-field>
@@ -20,6 +20,21 @@
         <mat-label>Licence</mat-label>
         <input matInput formControlName="keyLicense" class="formControl" placeholder="Algorithme"  /></mat-form-field>
       </div>
+-->
+<mat-form-field class="example-full-width">
+  <mat-label>Product</mat-label>
+  <input type="text"
+         placeholder="pick one"
+         aria-label="product"
+         matInput
+         formControlName="product"
+         [matAutocomplete]="auto">
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-option *ngFor="let option of fileredProduct | async" [value]="option.name"><!--soit kadiri id ila bghiti itle3 lik id dyl products f listing ola name kima drt db-->
+      {{option.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
 
       <div class="mt-2 mb-4 ml-2">
         <mat-form-field>
@@ -37,37 +52,20 @@
         </mat-form-field>
       </div>
 
-    
-      <mat-form-field class="example-full-width">
-        <mat-label>Product</mat-label>
-        <input type="text"
-               placeholder="pick one"
-               aria-label="product"
-               matInput
-               formControlName="product"
-               [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of fileredProduct | async" [value]="option.id">
-            {{option.id}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
       
       <div class="form-group flex flex-row-reverse gap-4">
         <button mat-button routerLink="/license" color="primary" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182); font-weight: bold;">Annuler</button>
        <!-- <button mat-raised-button color="primary" (click)="save()" style="border-radius: 15px ; border: 2px solid rgb(4, 37, 182);">Generate</button>-->
-      
-
       <button mat-raised-button color="primary" (click)=" save()" style="border-radius: 15px; border: 2px solid rgb(4, 37, 182);">
         Generate
       </button>
       </div>
 
-      <div *ngIf="licenseKey">
+    <!--  <div *ngIf="licenseKey">
         <label>License Key:</label>
         <p>{{ licenseKey }}</p>
       </div>
-      
+      -->
 
     </form>
     </div>

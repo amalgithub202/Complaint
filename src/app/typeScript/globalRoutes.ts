@@ -75,4 +75,20 @@ export class GlobalRoutes {
       GlobalRoutes.listingRoutesModule(listingComponent),
     ]
   }
+  public static StandarRoutesModuleModulel( createEditComponent: any,  employeeComponent: any) :Routes{
+    return [
+      {path: '', redirectTo:'modulel', pathMatch: 'full'},
+      GlobalRoutes.createRoutesModule(createEditComponent),
+      GlobalRoutes.editRoutesModule(createEditComponent),
+      GlobalRoutes.listingRoutesModule(employeeComponent),
+    ]
+  }
+  public static StandarRoutesModuleLicense( createEditComponent: any,  employeeComponent: any) :Routes{
+    return [
+      {path: '', redirectTo:'license', pathMatch: 'full'},
+      GlobalRoutes.createRoutesModule(createEditComponent),
+      GlobalRoutes.editRoutesModule(createEditComponent),
+      GlobalRoutes.listingRoutesModule(employeeComponent),
+    ]
+  }
 }
