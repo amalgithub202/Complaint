@@ -8,30 +8,30 @@
       <div class="flex flex-col">
          <!--INPUT NAME-->
         <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>Nom</mat-label>
         <input matInput formControlName="name" class="formControl" placeholder="Name" /></mat-form-field>
       </div>
       <div class="flex flex-col">
         <!--INPUT NAME-->
        <mat-form-field>
-       <mat-label>Package</mat-label>
-       <input matInput formControlName="package" class="formControl" placeholder="Package" /></mat-form-field>
+       <mat-label>Paquet</mat-label>
+       <input matInput formControlName="package" class="formControl" placeholder="paquet" /></mat-form-field>
      </div>
      <div class="flex flex-col">
       <!--INPUT NAME-->
      <mat-form-field>
-     <mat-label>key</mat-label>
-     <input matInput formControlName="key" class="formControl" placeholder="key" /></mat-form-field>
+     <mat-label>Clé</mat-label>
+     <input matInput formControlName="key" class="formControl" placeholder="Clé" /></mat-form-field>
    </div>
    <div class="flex flex-col">
     <!--INPUT NAME-->
    <mat-form-field>
-   <mat-label>index</mat-label>
-   <input matInput formControlName="index" class="formControl" placeholder="index" /></mat-form-field>
+   <mat-label>indice</mat-label>
+   <input matInput formControlName="index" class="formControl" placeholder="indice" /></mat-form-field>
  </div>
        <!--DROP DOWN DE CLIENT-->
       <div class=" mt-2 mb-4 ml-2 ">
-        <mat-label>Product</mat-label>
+        <mat-label>Produit</mat-label>
         <input type="text" class="form-control ml-3" formControlName="product" [matAutocomplete]="auto"/>
         <mat-autocomplete class="extended ml-2" matSelect #auto="matAutocomplete" [displayWith]="displayFn" >
          <mat-option [value]="item" [ngValue]="item" *ngFor="let item of fileredProduct  | async">{{ item.id}}</mat-option>
